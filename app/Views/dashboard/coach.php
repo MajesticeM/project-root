@@ -11,9 +11,9 @@
 <div class="container-fluid">
 <div class="row" style="margin-top:50px;margin-bottom:50px">
     <div class="col-md-9 profile-header text-left">
-        <img  alt="Profile Image" class="img-responsive">
+        <img  alt="Profile Image" src="https://via.placeholder.com/150" class="img-responsive">
         <h3>Coach Name</h3>
-        <p><b>Specialty:</b> Discus Throw</p>
+        <p><b>Specialty:</b> Golf</p>
        
     </div>
 
@@ -113,45 +113,54 @@
         <!-- /Sidebar -->
         <!-- Main content -->
         
-        <div class="col-md-9">
+       <!-- Main content -->
+       <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Coach Dashboard</h3>
                     <!-- Search form on the same line -->
                     <div class="row" style="margin-bottom:20px">
                         <div class="col-md-12 text-right">
-
+                           
                         </div>
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="row">
-                        <!-- Dummy content for 12 cards -->
-                        <?php for ($i = 1; $i <= 12; $i++): ?>
-                            <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header bg-primary text-white">
-                                        <h3 class="card-title">Athlete <?= $i ?></h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <img class="profile_images" src="https://via.placeholder.com/150" alt="Profile Image">
-                                        <p>Name: Athlete <?= $i ?></p>
-                                        <p>Date of Birth: 1990-01-01</p>
-                                        <p>Height (cm): 180</p>
-                                        <p>Weight (kg): 70</p>
-                                        <p>Country: Country <?= $i ?></p>
-                                        <a class="btn btn-primary" href="<?= base_url("/coach/view-athlete-portfolio"); ?>">
-                                            View Portfolio
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endfor; ?>
-                        <!-- End of dummy content for 12 cards -->
+    <div class="row">
+        <?php if (!empty($athletes)): ?>
+            <?php foreach ($athletes as $athlete): ?>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title"><?= htmlspecialchars($athlete['name']) ?></h3>
+                        </div>
+                        <div class="card-body">
+                            <?php if (!empty($athlete['profile_image'])): ?>
+                                <img class="profile_images img-responsive" src="<?= htmlspecialchars(base_url($athlete['profile_image'])) ?>" alt="Profile Image">
+                            <?php else: ?>
+                                <p>No profile image available</p>
+                            <?php endif; ?>
+                            <p>Name: <?= htmlspecialchars($athlete['username']) ?></p>
+                            <p>Date of Birth: <?= htmlspecialchars($athlete['dob']) ?></p>
+                            <p>Height: <?= htmlspecialchars($athlete['height']) ?></p>
+                            <p>Weight: <?= htmlspecialchars($athlete['weight']) ?></p>
+                            <p>Country: <?= htmlspecialchars($athlete['country']) ?></p>
+                            <a class="btn btn-primary" href="<?= base_url("coach/view-athlete-portfolio/{$athlete['id']}") ?>">
+                                View Portfolio
+                            </a>
+                        </div>
                     </div>
                 </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No athletes available.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
             </div>
         </div>
+        <!-- /Main content -->
         <!-- /Main content -->
     </div>
 </div>

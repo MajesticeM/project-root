@@ -595,7 +595,7 @@ public function login()
 
         // Retrieve all athletes from the database (replace 'coach' with your authentication logic)
         //$athletes = $userModel->where('user_type', 'athlete')->findAll();
-        $athletes = $userModel->where(['user_type' => 'athlete', 'status' => 'approved'])->findAll();
+        $athletes = $userModel->where(['user_type' => 'athlete'])->findAll();
 
         // Render the coach dashboard view with the list of athletes
         echo view('dashboard/coach', ['athletes' => $athletes]);
